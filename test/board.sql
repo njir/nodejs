@@ -9,3 +9,6 @@ create table board(
 	good int not null,
 	primary key(no)
 );
+
+show variables like '%max_connection%';
+show variables like '%wait_timeout%';	//줄여야함

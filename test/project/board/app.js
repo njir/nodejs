@@ -57,4 +57,14 @@ app.use(function(err, req, res, next) {
 });
 
 
+app.set('port', process.env.PORT || 3000); //port번호 세팅. process.env.port가 없으면 3000번을 쓰겠다
+
+var server = app.listen(app.get('port'), function(){
+  console.log('서버가 ' + app.get('port') + '에서 실행 중입니다.');
+    
+});
+    
+    
+
+
 module.exports = app;

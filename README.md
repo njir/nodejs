@@ -10,13 +10,38 @@ that makes it lightweight and efficient, perfect for data-intensive real-time ap
 Non Block I/O
 가볍고 효율적인 실시간 어플
 
+*cloud9 mysql 사용법
+mysql-ctl start
+mysql-ctl stop
+mysql-ctl cli
+source ~path.sql
+    - db 정보
+        host : $IP ('nodejs-njir-1.c9.io', 172.17.73.150)
+        port : 3306
+        user : $C9_USER
+        pw : x
+        Database : c9
+
+
+
+routes 가 컨트롤러
+views 가 뷰
+
+* git 
+git add .
+git rm -r --cached 지우고싶은폴더
+
+git commit -m "remove webstorm 이름 directory"
+git push origin master
+
+
 Common JS = 규칙
 200 성공
 404
 500 서버에러
 
 
----API```
+---API---
 Child Process : 1
 Cluster : 2
 Console : 4
