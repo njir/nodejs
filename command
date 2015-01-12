@@ -1,3 +1,8 @@
+* node.js 설치
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+
 *express generator
 
 npm install -g express-generator
@@ -19,6 +24,7 @@ supervisor app.js
 npm init
 npm install express --save 
 
+npm install mysql --save //이거는 제이슨에 추가해줌
 
 ex) board 프로젝트
 express --ejs board
