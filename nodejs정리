@@ -67,3 +67,13 @@ crypto.createHash
 File System 정말중요한 부분
 rename  : 비동기
 rename sync : 동기
+
+
+게시판 작성
+1. 글의 갯수를 카운트
+2. 몇번 글 부터 몇번 글까지
+limit 0, 10
+limt 10, 10
+limit 20, 10
+...
+

@@ -24,23 +24,23 @@ router.post('/write', function(req, res){
     var title = req.body.title;
     var content = req.body.content;
    
-   if(name == undefined){
+   if(name === undefined){
        res.json({'err':'no name'});
        return ;
    }
    
-   if(pw == undefined){
+   if(pw === undefined){
        res.json({'err':'no pw'});
        return ;
    }
    
    
-   if(title == undefined){
+   if(title === undefined){
        res.json({'err':'no titl'});
        return ;
    }
    
-   if(content == undefined){
+   if(content === undefined){
        res.json({'err':'no content'});
        return ;
    }
@@ -68,10 +68,86 @@ router.post('/write', function(req, res){
                 res.json({'success':'fail'});
             }
             console.log('rows', row);
+            
+            conn.release();
+            
         });        
     });
     
 });
+
+
+router.get('/list', function(req, res) {
+    res.redirect('/list/1');
+    
+});
+
+
+router.get('/list/:page', function(req, res) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    var size = 10;
+    var begin = (page - 1) * size;
+    
+    pool.getConnection(function(err, conn) {
+       if(err) console.err('err', err);
+       
+       conn.query('select count(*) cnt from board', [], function(err, rows){
+           if(err) console.err('err', err);
+           //console.log('rows', rows);
+           var cnt = rows[0].cnt;
+           var totalPage = Math.ceil(cnt / size);
+           var pageSize = 10; //링크 열개 보여준다.
+           var startPage= Math.floor((page-1) / pageSize) * pageSize + 1;
+           var endPage = startPage + (pageSize-1);
+           if(endPage > totalPage){
+               endPage = totalPage;
+           }
+           var max = cnt - ((page-1) * size);
+           
+           var sql = "select no, name, title, DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%s') regdate, hit from board order by no desc limit ?,?";
+           conn.query(sql, [begin, size], function(err, rows) {
+                if(err) console.error('err', err);
+            
+                console.log('rows', rows);
+                var datas = {
+                    title: '리스트', 
+                    data:rows,
+                    page:page,
+                    pageSize:pageSize,
+                    startPage:startPage,
+                    endPage:endPage,
+                    totalPage:totalPage,
+                    max:max
+                };
+            
+                res.render('list', datas); 
+         
+                conn.release();   
+            });
+        });
+    });
+
+    
+    /*
+    pool.getConnection(function(err, conn) {
+        if(err) console.error('err', err);
+        
+        var sql = "select no, name, title, DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%s') regdate, hit from board order by no desc";
+        conn.query(sql, [], function(err, rows) {
+        if(err) console.error('err', err);
+            
+            console.log('rows', rows);
+            var datas = {title: '리스트', data:rows};
+            
+            res.render('list', datas); 
+         
+        });
+        conn.release();   
+    });
+    */
+});
+
 
 
 module.exports = router;
