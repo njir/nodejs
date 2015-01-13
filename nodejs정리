@@ -10,6 +10,30 @@ that makes it lightweight and efficient, perfect for data-intensive real-time ap
 Non Block I/O
 가볍고 효율적인 실시간 어플
 
+
+
+=-----------------------------------------------------
+var write = function(datas, callback) {
+    var c = 'hello ' + datas;
+    callback(c);
+};
+
+write('world', function(c) {
+    console.log(c);
+});
+
+//6라인의 'world'가 datas(1번라인의 매개변수)로 감 
+// 2번라인 처리 후 callback(c)가 다시 function(c)로 옴
+//너한테 world를 던질테니까 너가 hello world로 만들어서 다시 나한테 보내
+
+-----------------------------------------------------------
+
+
+
+
+
+
+
 *cloud9 mysql 사용법
 mysql-ctl start
 mysql-ctl stop
@@ -22,6 +46,10 @@ source ~path.sql
         pw : x
         Database : c9
 
+
+
+*cloud9
+ctrl shift + B > formatter.
 
 
 routes 가 컨트롤러

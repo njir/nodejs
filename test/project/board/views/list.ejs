@@ -9,7 +9,7 @@
     <h1><%= title %></h1>
     <a href="/write">글쓰기</a><br>
     <br>
-    <table width="500" border="1">
+    <table>
         <tr>
            <th>번호</th>
            <th>제목</th> 
@@ -17,15 +17,53 @@
            <th>날짜</th> 
            <th>조회수</th> 
         </tr>
-        <% data.forEach(function(item, index){%>
+        <% 
+        for(var i=0;i < data.length; i++){
+            var item = data[i];
+        %>
             <tr>
-                <td><%=item.no%></td>
-                <td><%=item.title%></td>
+                <td><%=max - i%></td>
+                <td><a href="/read/<%=item.no%>/<%=page%>"><%=item.title%></a></td>
                 <td><%=item.name%></td>
                 <td><%=item.regdate%></td>
                 <td><%=item.hit%></td>
             </tr>
-        <%}); %>
+        <%} %>
     </table>
+    
+    <div style="width:46em; text-align:center; padding-top:2px">
+    <% if(page > pageSize){ %>
+    [<a style="text-decoration:none" href = "/list/1">◀◀</a>]
+    [<a style="text-decoration:none" href = "/list/<%=startPage -1%>">◀</a>]
+    
+    <% } else { %>
+    [<span style="color:gray">◀◀</span>]
+    [<span style="color:gray">◀</span>]
+    <% } %>
+    &nbsp;&nbsp;
+    
+    <% for(var i=startPage; i <= endPage; i++){ %>
+        <% if(i==page){  %>
+        [<%=i%>]    
+            
+        <% }else { %>
+        [ <a href = "/list/<%=i%>"> <%=i%> </a> ]
+    <% } %>
+    <% } %>
+    
+    &nbsp;&nbsp;
+    <% if(endPage < totalPage){ %>
+        [ <a style="text-decoration:none" href="/list/<%= endPage+1 %>">▶</a>
+        [ <a style="text-decoration:none" href="/list/<%= totalPage %>">▶▶</a>
+    
+    <% } else { %>
+        [<span style="color:gray">▶</span>]
+        [<span style="color:gray">▶▶</span>]
+    <% } %>
+    
+    
+    
+    </div>
+    
   </body>
 </html>

@@ -1,153 +1,151 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('mysql');
-var pool = mysql.createPool({
-   connectionLimit : 150,
-   host : '0.0.0.0',
-   user : 'njir',
-   database : 'test'
-});
+var db_board = require('../models/db_board');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('index', { title: 'Express' });
+    res.render('index', {
+        title: 'Express'
+    });
 });
 
-router.get('/write', function(req, res){    //index.ejs에서 write가 들어오면 펑션실행
-    res.render('writeform', {title : '글 쓰기'});  //writeform.ejs임 ejs생략
+router.get('/write', function(req, res) { //index.ejs에서 write가 들어오면 펑션실행
+    res.render('writeform', {
+        title: '글 쓰기'
+    }); //writeform.ejs임 ejs생략
 });
 
-router.post('/write', function(req, res){
+router.post('/write', function(req, res) {
     console.log('req.body=', req.body);
     var name = req.body.name;
     var pw = req.body.pw;
     var title = req.body.title;
     var content = req.body.content;
-   
-   if(name === undefined){
-       res.json({'err':'no name'});
-       return ;
-   }
-   
-   if(pw === undefined){
-       res.json({'err':'no pw'});
-       return ;
-   }
-   
-   
-   if(title === undefined){
-       res.json({'err':'no titl'});
-       return ;
-   }
-   
-   if(content === undefined){
-       res.json({'err':'no content'});
-       return ;
-   }
-   
-    var arr = [pw, name, title, content];
-   
-   
-   
-   
-    //DB연결
-    pool.getConnection(function(err, conn){
-        if(err){
-            console.error('err', err);
-        }
-        
-        //console.log('conn', conn);
-        var sql = 'insert into board(pw, name, title, content, regdate, hit, good) values(?,?,?,?,now(),0,0)';
-        conn.query(sql, arr, function(err, row){
-            if(err)
-                console.error('err', err);
-            
-            if(row.affectedRows ===1){
-                res.json({'success':'ok'});
-            }else{
-                res.json({'success':'fail'});
-            }
-            console.log('rows', row);
-            
-            conn.release();
-            
-        });        
-    });
-    
-});
+    var datas = [pw, name, title, content];
 
+    //success가 돌아옴
+    db_board.write(datas, function(success) {
+        if (success) {
+            //res.json({success: 'ok'});
+            res.redirect('/list/1');
+        }
+        else {
+            res.json({
+                success: 'fail'
+            });
+        }
+    });
+
+    if (name === undefined) {
+        res.json({
+            'err': 'no name'
+        });
+        return;
+    }
+    if (pw === undefined) {
+        res.json({
+            'err': 'no pw'
+        });
+        return;
+    }
+    if (title === undefined) {
+        res.json({
+            'err': 'no titl'
+        });
+        return;
+    }
+    if (content === undefined) {
+        res.json({
+            'err': 'no content'
+        });
+        return;
+    }
+});
 
 router.get('/list', function(req, res) {
     res.redirect('/list/1');
-    
 });
-
 
 router.get('/list/:page', function(req, res) {
     var page = req.params.page;
     page = parseInt(page, 10);
-    var size = 10;
-    var begin = (page - 1) * size;
-    
-    pool.getConnection(function(err, conn) {
-       if(err) console.err('err', err);
-       
-       conn.query('select count(*) cnt from board', [], function(err, rows){
-           if(err) console.err('err', err);
-           //console.log('rows', rows);
-           var cnt = rows[0].cnt;
-           var totalPage = Math.ceil(cnt / size);
-           var pageSize = 10; //링크 열개 보여준다.
-           var startPage= Math.floor((page-1) / pageSize) * pageSize + 1;
-           var endPage = startPage + (pageSize-1);
-           if(endPage > totalPage){
-               endPage = totalPage;
-           }
-           var max = cnt - ((page-1) * size);
-           
-           var sql = "select no, name, title, DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%s') regdate, hit from board order by no desc limit ?,?";
-           conn.query(sql, [begin, size], function(err, rows) {
-                if(err) console.error('err', err);
-            
-                console.log('rows', rows);
-                var datas = {
-                    title: '리스트', 
-                    data:rows,
-                    page:page,
-                    pageSize:pageSize,
-                    startPage:startPage,
-                    endPage:endPage,
-                    totalPage:totalPage,
-                    max:max
-                };
-            
-                res.render('list', datas); 
-         
-                conn.release();   
-            });
-        });
+
+    //function(datas)가 돌아오는 값임 list함수에서 callback(datas) 이 정보
+    db_board.list(page, function(datas) {
+        res.render('list', datas);
     });
 
-    
-    /*
-    pool.getConnection(function(err, conn) {
-        if(err) console.error('err', err);
-        
-        var sql = "select no, name, title, DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%s') regdate, hit from board order by no desc";
-        conn.query(sql, [], function(err, rows) {
-        if(err) console.error('err', err);
-            
-            console.log('rows', rows);
-            var datas = {title: '리스트', data:rows};
-            
-            res.render('list', datas); 
-         
-        });
-        conn.release();   
-    });
-    */
 });
 
+router.get('/read/:num/:page', function(req, res) {
+    var num = req.params.num;
+    var page = req.params.page;
 
+    db_board.read(num, function(data) {
+        res.render('read', {
+            title: '글 읽기',
+            data: data,
+            page: page
+        })
+    });
+
+});
+
+router.get('/update/:num/:page', function(req, res) {
+    var num = req.params.num;
+    var page = req.params.page;
+
+    db_board.updateform(num, function(data) {
+        res.render('updateform', {
+            title: '글 수정',
+            data: data,
+            page: page
+        });
+    });
+});
+
+router.post('/update', function(req, res) {
+    //  console.log('req.body=', req.body);
+    var num = req.body.num;
+    var pw = req.body.pw;
+    var name = req.body.name;
+    var title = req.body.title;
+    var content = req.body.content;
+    var page = req.body.page;
+    var datas = [name, title, content, num, pw];
+
+    db_board.update(datas, function(success) {
+        if (success) {
+            res.redirect('/list/' + page);
+        }
+        else {
+            res.send('<script>alert("비밀번호가 틀립니다.");history.back()</script>');
+        }
+    });
+});
+
+router.post('/delete', function(req, res) {
+    console.log('req.body=', req.body);
+    var page = req.body.page;
+    var num = req.body.num;
+    var pw = req.body.pw;
+    var datas = [num, pw];
+
+    db_board.delete(datas, function(success) {
+        if (success) {
+            res.redirect('/list/' + page);
+        }
+        else {
+            res.send('<script>alert("비밀번호가 틀렸습니다.");history.back();</script>');
+        }
+    });
+});
+
+//300개의 글을 쓰자
+router.get('/write300', function(req, res) {
+    db_board.write300(function(success) {
+        res.send('<script>alert("300개의 글 저장 완료");</script>');
+    });
+});
 
 module.exports = router;
