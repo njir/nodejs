@@ -14,6 +14,8 @@ node bin/www <실행
 
 
 *nodemon
+
+
 npm install -g nodemon
 
 *supervisor
@@ -36,3 +38,18 @@ package.json 수정 > mysql 모듈 추가
 ("dependencies"에   "mysql":"*" 추가)
 
 npm install
+
+* nodejs 워크스페이스에서는 sudo 없어도 됨
+sudo npm install -g forever
+sudo forever start app.js
+sudo forever list
+sudo forever stopall
+
+sudo npm install -g pm2
+pm2 start app.js -i max --name "api"
+pm2 monit
+
+
+pm2 list
+pm2 delete
+pm2 stop

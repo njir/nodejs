@@ -28,10 +28,17 @@ write('world', function(c) {
 
 -----------------------------------------------------------
 
+*ubuntu mysql timezone설정방법
+sudo cp /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+sudo service mysql restart
 
 
 
+*터미널 명령어
+du -sh * : 한단계 서브디렉토리 기준으로 보여줌 (자주 사용할듯)
 
+
+alter table board convert to charset utf8; 
 
 
 *cloud9 mysql 사용법
