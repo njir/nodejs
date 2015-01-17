@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset = "utf-8">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript">
+        function modify(){
+            location.href ="/update/<%=data.num%>/<%=page%>";
+        }
+ 
+        
+    </script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <a href="/join">회원가입</a><br>
+    <a href="/login">로그인</a><br>
+    
+    <a href="/list/<%=page%>">회원 리스트</a><br>
+    <a href="/withdrawal">회원탈퇴</a><br>
+    <table>
+        <tr>
+            <th width="20%">회원번호</th>
+            <td><%=data.num%></td>
+        </tr>
+        
+        
+        <tr>
+            <th>이름</th>
+            <td><%=data.name%></td>
+        </tr>
+        
+        <tr>
+            <th>email</th>
+            <td><%=data.email%></td>
+        </tr>
+        <tr>
+            <th>성별</th>
+            <td><%=data.sex%></td>
+        </tr>
+        <tr>
+            <th>나이</th>
+            <td><%=data.age%></td>
+        </tr>
+        
+        <tr>
+            <th>가입날짜</th>
+            <td><%=data.joindate%></td>
+        </tr>
+        
+        
+        <tr>
+            <th>전화번호</th>
+            <td><%=data.phone%></td>
+        </tr>
+        <tr>
+           <td colspan="2">
+               <span id="span1">
+                   
+                 <input type="button" value="수정" onclick="modify()">
+               </span>
+             
+             </form>
+           </td>
+            
+            
+        </tr>
+        
+        
+    </table>
+  </body>
+</html>

@@ -10,9 +10,15 @@ that makes it lightweight and efficient, perfect for data-intensive real-time ap
 Non Block I/O
 가볍고 효율적인 실시간 어플
 
+--------------------------
+
+http://developer.android.com/sdk/index.html
+eclipse with adt 
 
 
-=-----------------------------------------------------
+
+
+-----------------------------------------------------
 var write = function(datas, callback) {
     var c = 'hello ' + datas;
     callback(c);

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+         <meta charset = "utf-8">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <a href="/list/<%=page%>">회원리스트</a><br>
+    <form action="/update" method="post">
+      <table>
+        <tr>
+           
+          <th>Id</th>
+          <td>
+            <%=data.id%>
+            <input type="hidden" name="num" value="<%=data.num%>">
+                 <input type="hidden" name="page" value="<%=page%>">
+        </tr>
+        <tr>
+          <th>비밀번호</th>
+          <td><input type="password" name="pw" value="<%=data.pw%>" size="50" maxlength="50"></td>
+        </tr>
+        <tr>
+          <th>이름</th>
+          <td><input type="text" name="name" value="<%=data.name%>" size="50" maxlength="50"></td>
+        </tr>
+        <tr>
+          <th>email</th>
+          <td><input type="text" name="email" value="<%=data.email%>" size="50" maxlength="50"></td>
+        </tr>
+         <tr>
+          <th>성별</th>
+          <td><input type="text" name="sex" value="<%=data.sex%>" size="50" maxlength="50"></td>
+        </tr>
+         <tr>
+          <th>phone</th>
+          <td><input type="text" name="phone" value="<%=data.phone%>" size="50" maxlength="50"></td>
+        </tr>
+          <tr>
+          <th>age</th>
+          <td><input type="text" name="age" value="<%=data.age%>" size="50" maxlength="50"></td>
+        </tr>
+        <tr>
+         
+
+        
+        <tr>
+          <td colspan="2">
+            <input type="submit" value="수정">
+            <input type="reset" value="취소">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

@@ -50,7 +50,7 @@ router.post('/write', function(req, res) {
     }
     if (title === undefined) {
         res.json({
-            'err': 'no titl'
+            'err': 'no title'
         });
         return;
     }
