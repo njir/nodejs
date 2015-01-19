@@ -73,7 +73,6 @@ router.post('/join', function(req, res) {
         });
         return;
     }
-
 });
 
 

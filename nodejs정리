@@ -44,7 +44,22 @@ sudo service mysql restart
 du -sh * : 한단계 서브디렉토리 기준으로 보여줌 (자주 사용할듯)
 
 
+
+*convert to utf8 on mysql
 alter table board convert to charset utf8; 
+
+
+*session 사용법
+app.js 에 require 추가하고
+use 쿠키파서 ~~ use.route 사이에 app.use(session ...)추가
+어떤 페이지든지 접속하면 세션이 만들어진다.(무조건) 
+서버의 메모리에 저장됨. 
+세션은 키와 값으로 이루어져있음.
+
+
+
+
+
 
 
 *cloud9 mysql 사용법
@@ -76,6 +91,24 @@ git commit -m "remove webstorm 이름 directory"
 git push origin master
 
 
+
+
+
+
+
+
+* vi
+ctrl u, ctrl d
+
+
+
+
+
+
+
+
+
+
 Common JS = 규칙
 200 성공
 404
@@ -83,6 +116,7 @@ Common JS = 규칙
 
 
 ---API---
+
 Child Process : 1
 Cluster : 2
 Console : 4

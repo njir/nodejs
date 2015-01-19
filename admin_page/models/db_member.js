@@ -13,7 +13,7 @@ exports.join = function(datas, callback) {
             console.error('Join Err', err);
         }
 
-        var sql = 'insert into member(id, pw, name, email, sex, age, phone) values(?,?,?,?,?,?,?)';
+        var sql = 'insert into admin_member(id, pw, name, email, sex, age, phone) values(?,?,?,?,?,?,?)';
         conn.query(sql, datas, function(err, row) {
             var success;
             if (err) {
@@ -35,7 +35,7 @@ exports.list = function(page, callback) {
     pool.getConnection(function(err, conn) {
         if (err) console.err('err', err);
 
-        conn.query('select count(*) cnt from member', [], function(err, rows) {
+        conn.query('select count(*) cnt from admin_member', [], function(err, rows) {
             if (err) console.err('err', err);
             //console.log('rows', rows);
             var cnt = rows[0].cnt;
@@ -47,7 +47,7 @@ exports.list = function(page, callback) {
                 endPage = totalPage;
             }
             var max = cnt - ((page - 1) * size);
-            var sql = "select num, id, name, email, sex, age, joindate, phone, withdrawal from member order by num desc limit ?,?";
+            var sql = "select num, id, name, email, sex, age, joindate, phone, withdrawal from admin_member order by num desc limit ?,?";
 
             conn.query(sql, [begin, size], function(err, rows) {
                 if (err) console.error('err', err);
@@ -73,11 +73,11 @@ exports.list = function(page, callback) {
 exports.read = function(num, callback) {
     pool.getConnection(function(err, conn) {
         if (err) console.error('err', err);
-        conn.query('update member set withdrawal="N" where num=?', [num], function(err, row) {
+        conn.query('update admin_member set withdrawal="N" where num=?', [num], function(err, row) {
             if (err) console.error('err', err);
             console.log('row', row);
             //select는 무조건 배열로 받음
-            conn.query('select * from member where num=?', [num], function(err, rows) {
+            conn.query('select * from admin_member where num=?', [num], function(err, rows) {
                 if (err) console.error('err', err);
                 //console.log('rows', rows);
                 conn.release();
@@ -91,7 +91,7 @@ exports.read = function(num, callback) {
 exports.updateform = function(num, callback) {
     pool.getConnection(function(err, conn) {
         if (err) console.err('err', err);
-        conn.query('select * from member where num=?', [num], function(err, rows) {
+        conn.query('select * from admin_member where num=?', [num], function(err, rows) {
             if (err) console.err('updateform err', err);
             conn.release();
 
@@ -105,7 +105,7 @@ exports.update = function(datas, callback) {
 
     pool.getConnection(function(err, conn) {
         if (err) console.err('err', err);
-        conn.query('update member set pw=?, name=?, email=?, sex=?, phone=?, age=? where num=?', datas, function(err, row) {
+        conn.query('update admin_member set pw=?, name=?, email=?, sex=?, phone=?, age=? where num=?', datas, function(err, row) {
             var success = false;
             if (err) console.err('update sql err', err);
             if (row.affectedRows == 1) {
@@ -124,7 +124,7 @@ exports.withdrawal = function(datas, callback) {
         if (err) {
             console.error('withdrawal error', err);
         }
-        conn.query('update member set withdrawal="Y" where id=? and pw=?', datas, function(err, rows) {
+        conn.query('update admin_member set withdrawal="Y" where id=? and pw=?', datas, function(err, rows) {
             // body...
             if (err) console.error('withdrawal sql error', err);
             console.log('rows', rows);
@@ -144,7 +144,7 @@ exports.login = function(datas, callback) {
         if (err) {
             console.error('login Err', err);
         }
-        var sql = 'select id, pw from member where id=? and pw=?';
+        var sql = 'select id, pw from admin_member where id=? and pw=?';
         conn.query(sql, datas, function(err, rows) {
             if (err) {
                 console.error('SQL login Error', err);
@@ -171,7 +171,7 @@ exports.join100 = function(callback) {
             else sex = 'male'
             var age = i;
             var phone = i * 10;
-            conn.query('insert into member(id, pw, name, email, sex, age, phone) values(?,?,?,?,?,?,?)', [id, pw, name, email, sex, age, phone], function(err, rows) {
+            conn.query('insert into admin_member(id, pw, name, email, sex, age, phone) values(?,?,?,?,?,?,?)', [id, pw, name, email, sex, age, phone], function(err, rows) {
                 if (err) console.err('err', err);
             });
         }
