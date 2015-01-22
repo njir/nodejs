@@ -1,19 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-
-var pool = mysql.createPool({
-    connectionLimit: 150,
-    host: '0.0.0.0',
-    user: 'njir',
-    database: 'test'
-});
+var db_member = require('../models/db_member');
 
 /* GET home page. */
 router.get('/', function(req, res) {
     //var user_id = (req.session.user_id === undefined ? 'none' : req.session.user_id);
     //res.json({user_id: user_id}); 모바일일때는
-
     res.render('index', {
         title: 'Express',
         user_id: req.session.user_id
@@ -38,35 +31,24 @@ router.post('/join', function(req, res) {
     var age = req.body.age;
     age = parseInt(req.body.age, 10);
     var email = req.body.email;
+    var datas = [id, pw, name, tel, sex, email, age];
 
-    pool.getConnection(function(err, conn) {
-        if (err) {
-            console.error('getConnection error', err);
+    db_member.join(datas, function(success) {
+        if (success) {
+            // res.json({result:'success'}); 모바일일 경우
+            res.redirect('/login');
         }
-        var sql = "insert into member(id, pw, name, tel, sex, email, age, regday, upday, del_yn) values(?,?,?,?,?,?,?,now(),now(),'N')";
-        var data = [id, pw, name, tel, sex, email, age];
-        conn.query(sql, data, function(err, row) {
-            if (err) {
-                console.error('sql error', err);
-            }
+        else {
+            // res.json({result:'fail'}); 모바일일 경우
+            res.send('<script>alert("오류가 발생해서 되돌아갑니다.");history.back();</script>');
+        }
 
-            if (row.affectedRows == 1) {
-                // res.json({result:'success'}); 모바일일 경우
-                res.redirect('/login');
-            }
-            else {
-                // res.json({result:'fail'}); 모바일일 경우
-                res.send('<script>alert("오류가 발생해서 되돌아갑니다.");history.back();</script>');
-            }
-            conn.release();
-        });
     });
 });
 
 // 로그인 
 router.get('/login', function(req, res) {
-    console.log('req.session', req.session);
-    console.log('req.session.id', req.session.id);
+    //console.log('req.session.id', req.session.id);
     res.render('loginform', {
         title: '로그인'
     });
@@ -75,31 +57,22 @@ router.get('/login', function(req, res) {
 router.post('/login', function(req, res) {
     var id = req.body.id;
     var pw = req.body.pw;
+    var datas = [id, pw];
 
-    pool.getConnection(function(err, conn) {
-        if (err) {
-            console.error('getConnection error', err);
+    db_member.login(datas, function(cnt) {
+        if (cnt === 1) {
+            //res.json({result: 'success'}); 모바일일경우
+            req.session.user_id = id; //세션은 변수로 존재하고있음. 그냥 사용하면 됨
+            res.send('<script>location.href="/";</script>');
         }
-        var sql = 'select count(*) cnt from member where id=? and pw=?';
-        var data = [id, pw];
-        conn.query(sql, data, function(err, rows) { //select는 rows로 하는게 좋음. select의 모든 결과는 배열로 옴
-            if (err) {
-                console.error('sql error', err);
-            }
-            var cnt = rows[0].cnt;
-            if (cnt === 1) {
-                //res.json({result: 'success'}); 모바일일경우
-                req.session.user_id = id; //세션은 변수로 존재하고있음. 그냥 사용하면 됨
-                res.send('<script>location.href="/";</script>');
-            }
-            else {
-                //res.json({result: 'fail'}); 모바일일경우
-                res.send('<script>alert("ID/패스워드를 확인하세요.");history.back();</script>');
-            }
-        });
+        else {
+            //res.json({result: 'fail'}); 모바일일경우
+            res.send('<script>alert("ID/패스워드를 확인하세요.");history.back();</script>');
+        }
     });
 });
 
+//  로그아웃
 router.get('/logout', function(req, res) {
     req.session.destroy(function(err) {
         if (err) {
@@ -109,5 +82,20 @@ router.get('/logout', function(req, res) {
 
     });
 });
+
+
+//업로드
+router.get('/upload', function(req, res) {
+    res.render('upload/upload', {
+        title: '업로드'
+    });
+});
+
+router.post('/upload', function(req, res) {
+    console.log('req.body', req.body);
+    console.log('req.files', req.files);
+    res.send('/');
+});
+
 
 module.exports = router;

@@ -1,3 +1,13 @@
+$(document).on('pageshow', '#guest', function() {
+	console.log('blog');
+	$.ajax({
+		url : 'https://nodejs-njir-1.c9.io/guest/list.do?callback=?',
+		dataType : 'jsonp',
+		success : function(data) {
+			listPosts(data);
+		}
+	});
+});
 $(document).on('pageshow', '#blog', function() {
 	console.log('blog');
 	$.ajax({
@@ -8,7 +18,6 @@ $(document).on('pageshow', '#blog', function() {
 		}
 	});
 });
-
 // 블로그 리스트
 function listPosts(data) {
 	var items = data.channel.item;

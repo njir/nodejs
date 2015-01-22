@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css">
+	table{width: 400;}
+	th{background-color: gray;}
+	</style>
+  </head>
+  
+  <body>
+    <h1><%= title %></h1>
+
+  <form action="/upload" method="post" enctype="multipart/form-data">
+		<table border="1" width="500">
+			<tr>
+				<th>이름</th></th>
+				<td><input type="text" name="name" size="10"></td>
+			</tr>
+			<tr>
+				<th>직책</th>
+				<td><input type="text" name="job" size="10"></td>
+			</tr>
+				<tr>
+				<th>파일1</th>
+				<td><input type="file" name="upfile1"></td>
+			</tr>
+			
+				<tr>
+				<th>파일2</th>
+				<td><input type="file" name="upfile2"></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="업로드">
+					<input type="reset" value="Cancel">
+					</td>
+				</tr>
+		</table>
+	</form>
+    
+    
+    
+  </body>
+</html>

@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -31,6 +32,13 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true
+}));
+
+app.use(multer({
+   dest: './uploads/',
+   rename: function(fieldname, filename){
+       return filename.toLowerCase() + Date.now();
+   }
 }));
 
 

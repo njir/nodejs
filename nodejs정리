@@ -1,7 +1,3 @@
-Node.js® is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. 
-Node.js uses an event-driven, non-blocking I/O model 
-that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
-
 크롬 v8엔진
 쉽고 빠른 개발
 확장 가능한 네트워크 어플
@@ -14,9 +10,6 @@ Non Block I/O
 
 http://developer.android.com/sdk/index.html
 eclipse with adt 
-
-
-
 
 -----------------------------------------------------
 var write = function(datas, callback) {
@@ -38,30 +31,19 @@ write('world', function(c) {
 sudo cp /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 sudo service mysql restart
 
-
+-----------------------------------------------------------
 
 *터미널 명령어
 du -sh * : 한단계 서브디렉토리 기준으로 보여줌 (자주 사용할듯)
 
 
+-----------------------------------------------------------
 
 *convert to utf8 on mysql
 alter table board convert to charset utf8; 
 
 
-*session 사용법
-app.js 에 require 추가하고
-use 쿠키파서 ~~ use.route 사이에 app.use(session ...)추가
-어떤 페이지든지 접속하면 세션이 만들어진다.(무조건) 
-서버의 메모리에 저장됨. 
-세션은 키와 값으로 이루어져있음.
-
-
-
-
-
-
-
+-----------------------------------------------------------
 *cloud9 mysql 사용법
 mysql-ctl start
 mysql-ctl stop
@@ -75,14 +57,17 @@ source ~path.sql
         Database : c9
 
 
+-----------------------------------------------------------
 
 *cloud9
 ctrl shift + B > formatter.
 
+-----------------------------------------------------------
 
 routes 가 컨트롤러
 views 가 뷰
 
+-----------------------------------------------------------
 * git 
 git add .
 git rm -r --cached 지우고싶은폴더
@@ -91,22 +76,41 @@ git commit -m "remove webstorm 이름 directory"
 git push origin master
 
 
-
-
-
-
-
+-----------------------------------------------------------
 
 * vi
-ctrl u, ctrl d
+화면 이동ctrl u, ctrl d
+
+
+4. visual mode 활성화 및 관련 키
+ * v : 글자 단위
+ * V : 라인 단위
+ * <C-v> : block-wise 모드
+ * viw : 현재 커서가 있는 단어(단어 상에서의 위치는 상관 없음
+  - 단어 상에서의 위치는 상관 없다. w까지 입력하면 커서는 해당 단어의 끝 문자로 이동한다.
+ * vit : blocking tag block. <a>ABC</a> 와 같이 태그가 있는 문서에서 택스트 부분만 블록 설정을 한다
+ * vi} : 중괄호({, })로 묶은 부분을 블록 설정함
+ * vi" : 큰따옴표로 묶인 부분을 블록 설정함
+ * switching: 어떤 비주얼 모드에서 다른 비주얼 모드로 전환
+  - 예) v 모드에서 V를 입력하면 라인 단위 비주얼 모드로 전환된다
+ * o: 비주얼 모드로 블럭을 지정했을 때 블록의 시작/끝으로 커서 이동
+ 
+활용 >>>
+""지우기
+di"
+
+
+5. 대/소문자 바꾸기
+ * ~ : 현재 커서가 있는 글자 하나의 대/소문자를 바꿈
+ * gUiw: 현재 커서가 있는 단어를 대문자로 바꿈
+ * guiw: 현재 커서가 있는 단어를 소문자로 바꿈
+ * gUU: 현재 커서가 있는 라인 전체를 대문자로 바꿈
 
 
 
 
 
-
-
-
+-----------------------------------------------------------
 
 
 Common JS = 규칙

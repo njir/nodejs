@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> Socket.io Chat </title>
+    <style type="text/css">
+        #chat {
+            height: 300px;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- <script src=""></script> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function() {
+            var socket = io.connect();
+            var chat = $("#chat");
+            $("#sendForm").submit(function(e) {
+                e.preventDefault();
+                //<!-- 값을 가져올때 -->
+                socket.emit("send message", $("#message").val());
+                //값을 설정할때
+                $("#message").val("");
+            });
+            socket.on("new nessage", function(data){
+                chat.append(data + "<br>");
+            });
+        });
+    </script>
+
+
+</head>
+
+<body>
+    <div id="chat"></div>
+    <form id="sendForm">
+        <input size="35" id="message">
+        <input type="submit" value="Send" />
+    </form>
+</body>
+
+</html>

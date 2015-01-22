@@ -3,6 +3,8 @@ sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get update
 sudo apt-get install nodejs
 
+-------------------------------------------------------------------------
+
 *express generator
 
 npm install -g express-generator
@@ -12,15 +14,16 @@ cd ex2
 npm install
 node bin/www <실행
 
+-------------------------------------------------------------------------
 
 *nodemon
-
-
 npm install -g nodemon
 
 *supervisor
 npm install -g supervisor
 supervisor app.js
+
+-------------------------------------------------------------------------
 
 *express
 npm init
@@ -39,6 +42,8 @@ package.json 수정 > mysql 모듈 추가
 
 npm install
 
+-------------------------------------------------------------------------
+
 * nodejs 워크스페이스에서는 sudo 없어도 됨
 sudo npm install -g forever
 sudo forever start app.js
@@ -53,3 +58,19 @@ pm2 monit
 pm2 list
 pm2 delete
 pm2 stop
+
+-------------------------------------------------------------------------
+* multer 업로드할때 사용
+npm install multer --save
+
+* email
+npm install emailjs
+
+-------------------------------------------------------------------------
+
+*session 사용법
+app.js 에 require 추가하고
+use 쿠키파서 ~~ use.route 사이에 app.use(session ...)추가
+어떤 페이지든지 접속하면 세션이 만들어진다.(무조건) 
+서버의 메모리에 저장됨. 
+세션은 키와 값으로 이루어져있음.
