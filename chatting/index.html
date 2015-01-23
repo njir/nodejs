@@ -23,6 +23,29 @@
     <script>
         $(function() {
             var socket = io.connect();
+            $("#nickForm").submit(function(e) {
+                e.preventDefault();
+                $("nickView").html("<b>My Nickname : " + $("#nickname").val() + "</b>");
+                socket.emit("new user", $("#(nickname").val(), function(data) {
+                    if (data) {
+                        $("#nickWrap").hide();
+                        $("#contentWrap").show();
+                    }
+                    else {
+                        $("nickError").html("다른 닉네임을 사용해주세요");
+                    }
+                });
+                $("nickname").val("");
+            });
+
+            socket.on("usernames", function(data) {
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    html += data[i] + "<br>";
+                }
+                $("#users").html(html);
+            });
+
             var chat = $("#chat");
             $("#sendForm").submit(function(e) {
                 e.preventDefault();
@@ -32,7 +55,9 @@
                 $("#message").val("");
             });
             socket.on("new nessage", function(data) {
-                chat.append(data + "<br>");
+                $("chat").append("<b>" + data.nick + ": </b>" + data.msg + "<br>");
+                $("chat").scrollTop($("#chat").prop("scrollHeight"));
+                
             });
         });
     </script>
@@ -41,11 +66,26 @@
 </head>
 
 <body>
-    <div id="chat"></div>
-    <form id="sendForm">
-        <input size="35" id="message">
-        <input type="submit" value="Send" />
-    </form>
+    <div id="nickWrap">
+        <p>Enter a username : </p>
+        <p id="nickError"></p>
+        <form id="nickForm">
+            <input type="text" size="35" id="nickname">
+            <input type="submit" value="Enter">
+        </form>
+    </div>
+
+    <div id="contentWrap">
+        <div id="nickView"></div>
+        <div id="chatWrap">
+            <div id="chat"></div>
+            <form id="sendForm">
+                <input size="35" id="message">
+                <input type="submit" value="Send">
+            </form>
+        </div>
+        <div id="users"></div>
+    </div>
 </body>
 
 </html>

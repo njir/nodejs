@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 //add routes
 var users = require('./routes/users');
-var update =  require('./routes/update');
+var update = require('./routes/update');
 var heart = require('./routes/heart');
 var picture = require('./routes/picture');
 var list = require('./routes/list');
@@ -27,7 +27,9 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

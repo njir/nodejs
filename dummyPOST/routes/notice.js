@@ -54,12 +54,14 @@ router.post('/coupon_info', function(req, res) {
             "COUPON_PHOTO": "wangdeabak_1.png",
             "COUPON_THUMB": "wangdeabak.png",
             "COUPON_CONTENT": "싸고 맛남, 헌팅 술집!",
-            "COUPON_PLACE_ID": "건대입구역 3번출구 우회전 70m근방"
+            "COUPON_LAT": "127.1253315",
+            "COUPON_LNG": "37.3453315",
         }, {
             "COUPON_PHOTO": "indio_1.png",
             "COUPON_THUMB": "indioThumb.png",
             "COUPON_CONTENT": "싸고 맛남, 헌팅 술집, 물좋음",
-            "COUPON_PLACE_ID": "신림역 8번출구 직진 100m근방"
+            "COUPON_LAT": "27.5162156",
+            "COUPON_LNG": "237.4516585",
         }]
     };
     var fail = {

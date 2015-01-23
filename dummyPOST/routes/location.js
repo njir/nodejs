@@ -5,33 +5,33 @@ var router = express.Router();
 router.post('/', function(req, res) {
     var success = {
         "result": [{
-            "PLACE_LAT": "127.1212",
-            "PLACE_LNG": "26.1212",
-            "PlACE_USER_ID": "JINSU"
+            "LIST_LAT": "127.1212",
+            "LIST_LNG": "26.1212",
+            "USER_NICKNAME": "JINSU"
         }, {
-            "PLACE_LAT": "327.1213",
-            "PLACE_LNG": "66.1212",
-            "PlACE_USER_ID": "TAK"
+            "LIST_LAT": "327.1213",
+            "LIST_LNG": "66.1212",
+            "USER_NICKNAME": "TAK"
         }, {
-            "PLACE_LAT": "234.1212",
-            "PLACE_LNG": "134.2212",
-            "PlACE_USER_ID": "MIN"
+            "LIST_LAT": "234.1212",
+            "LIST_LNG": "134.2212",
+            "USER_NICKNAME": "MIN"
         }, {
-            "PLACE_LAT": "327.2311",
-            "PLACE_LNG": "326.6312",
-            "PlACE_USER_ID": "JUNHO"
+            "LIST_LNG": "327.2311",
+            "LIST_LAT": "326.6312",
+            "USER_NICKNAME": "JUNHO"
         }, {
-            "PLACE_LAT": "527.1217",
-            "PLACE_LNG": "56.3672",
-            "PlACE_USER_ID": "BACK"
+            "LIST_LAT": "527.1217",
+            "LIST_LNG": "56.3672",
+            "USER_NICKNAME": "BACK"
         }, {
-            "PLACE_LAT": "425.1214",
-            "PLACE_LNG": "736.2312",
-            "PlACE_USER_ID": "SANG"
+            "LIST_LAT": "425.1214",
+            "LIST_LNG": "736.2312",
+            "USER_NICKNAME": "SANG"
         }, {
-            "PLACE_LAT": "117.1212",
-            "PLACE_LNG": "56.1342",
-            "PlACE_USER_ID": "HAHA"
+            "LIST_LAT": "117.1212",
+            "LIST_LNG": "56.1342",
+            "USER_NICKNAME": "HAHA"
         }]
     };
     var fail = {
@@ -80,7 +80,7 @@ router.post('/state', function(req, res) {
 
 //http://SERVER_IP/location/state_detail
 router.post('/state_detail', function(req, res) {
-   var success = {
+    var success = {
         "result": [{
             "STATE_LAT": "127.1545",
             "STATE_LNG": "36.5112",
