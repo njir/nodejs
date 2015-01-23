@@ -9,9 +9,16 @@
             max-height: 280px;
             overflow-y: auto;
         }
+        #contentWrap {
+            display: none;
+        }
+        #chatWrap {
+            float: left;
+            border: 1px #000 solid;
+        }
     </style>
+
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <!-- <script src=""></script> -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
         $(function() {
@@ -24,7 +31,7 @@
                 //값을 설정할때
                 $("#message").val("");
             });
-            socket.on("new nessage", function(data){
+            socket.on("new nessage", function(data) {
                 chat.append(data + "<br>");
             });
         });
