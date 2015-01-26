@@ -1,35 +1,44 @@
 var express = require('express');
 var router = express.Router();
+var db_heart = require('../models/db_heart');
 
 
 // http://SERVER_IP/heart
-router.get('/', function(req, res) {
-    var success = {
-      "result" : "OK",
-      "USER_HEART_CNT" : "5"
-    };
-    
+router.post('/', function(req, res) {
+    var userNickname = req.body.user_nickname;
+    console.log(req.body);
+
     var fail = {
-        "result" : "fail"
+        "result": "fail"
+    };
+
+    if (!userNickname) {
+        res.json(fail);
     }
-    
-    res.json(success);
-    //res.json(fail)
+    else {
+        db_heart.heart(userNickname, function(data) {
+            res.json(data);
+        });
+    }
 });
 
 // http://SERVER_IP/heart/update
-router.get('/update', function(req, res) {
-    var success = {
-      "result" : "OK",
-      "USER_HEART_CNT" : "3"    //줄어듬
-    };
-    
+router.post('/update', function(req, res) {
+    var userNickname = req.body.user_nickname;
+    console.log(req.body);
+
     var fail = {
-        "result" : "fail"
+        "result": "fail"
+    };
+
+    if (!userNickname) {
+        res.json(fail);
     }
-    
-    res.json(success);
-    //res.json(fail)
+    else {
+        db_heart.update(userNickname, function(data) {
+            res.json(data);
+        });
+    }
 });
 
 module.exports = router;

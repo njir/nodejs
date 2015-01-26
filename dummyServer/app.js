@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 //add routes
 var users = require('./routes/users');
-var update =  require('./routes/update');
+var update = require('./routes/update');
 var heart = require('./routes/heart');
 var picture = require('./routes/picture');
 var list = require('./routes/list');
@@ -27,16 +27,15 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-
 app.use('/update', update);
-
-
 app.use('/heart', heart);
 app.use('/picture', picture);
 app.use('/list', list);
@@ -78,7 +77,10 @@ app.use(function(err, req, res, next) {
 });
 
 app.set('port', process.env.PORT || 80);
+//app.set('port', 3000);
 var server = app.listen(app.get('port'), function() {
+    console.log('http://54.149.225.91:3000/');
+    console.log('DummyServer 시작');
     console.log('Listening on port ' + server.address().port);
 });
 

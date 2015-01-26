@@ -187,7 +187,7 @@ router.post('/login', function(req, res) {
 
 
 router.get('/join100', function(req, res) {
-    db_member.join100(function(success){
+    db_member.join100(function(success) {
         res.send('<scrip>alert("100개 아이디 저장완료");</script>');
     });
 });
