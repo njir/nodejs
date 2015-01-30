@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 var routes = require('./routes/index');
 //add routes
 var users = require('./routes/users');
@@ -79,7 +80,6 @@ app.use(function(err, req, res, next) {
 app.set('port', process.env.PORT || 80);
 //app.set('port', 3000);
 var server = app.listen(app.get('port'), function() {
-    console.log('http://54.149.225.91:3000/');
     console.log('DummyServer 시작');
     console.log('Listening on port ' + server.address().port);
 });

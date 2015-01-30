@@ -69,7 +69,7 @@ function c2(datas, callback) {
 	pool.getConnection(function(err, conn) {
 		if (err) console.error('err', err);
 		var sql = "select no, name, title, DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%s') regdate, hit from board order by no desc limit ?,?";
-		conn.query(sql , [datas.begin, datas.size], function(err, rows) {
+		conn.query(sql, [datas.begin, datas.size], function(err, rows) {
 			if (err) console.error('err', err);
 			datas.data = rows;
 			conn.release();

@@ -42,7 +42,7 @@ router.post('/update', function(req, res) {
 
 //http://SERVER_IP/picture/somenow
 router.post('/somenow', function(req, res) {
-    var listUserID = req.body.list_user_id;
+    var listID = req.body.list_id;
     console.log(req.body);
 
     var success = {

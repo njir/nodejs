@@ -1,0 +1,27 @@
+app ID
+334794396722736
+
+App Secret 
+7c070548bd07bb2eaa03419f4a7a3aab
+
+module.exports = {
+    facebookAuth: {
+        clientID: '334794396722736',
+        clientSecret: '7c070548bd07bb2eaa03419f4a7a3aab',
+        callbackURL: 'https://nodejs-njir-1.c9.io/auth/facebook/callback'
+    }
+};
+
+
+
+https://developers.facebook.com/apps/334794396722736/dashboard/
+
+
+npm install passport --save
+npm install passport-facebook --save
+npm install express-session --save
+npm install express-mysql-session --save
+npm install winston --save
+npm install request --save
+npm install async --save
+npm install mysql --save

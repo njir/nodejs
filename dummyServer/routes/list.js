@@ -40,8 +40,8 @@ router.post('/someplace_info', function(req, res) {
 //http://SERVER_IP/list/somenow
 router.post('/somenow', function(req, res) {
     var userNickname = req.body.user_nickname;
-    var lat = req.body.LAT;
-    var lng = req.body.LNG;
+    var lat = req.body.lat;
+    var lng = req.body.lng;
     console.log(req.body);
 
     var success = {

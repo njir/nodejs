@@ -11,7 +11,7 @@ router.post('/', function(req, res) {
         "result": [{
             "list_lat": "127.1212",
             "list_lng": "26.1212",
-            "user_nickname": userNickname[0]
+            "user_nickname": userNickname
         }, {
             "list_lat": "327.1213",
             "list_lng": "66.1212",

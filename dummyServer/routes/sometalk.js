@@ -78,10 +78,10 @@ router.post('/chat', function(req, res) {
 
     var success = {
         "result": [{
-            "chat_send_id": chatroomRecvID[0],
-            "chat_recv_id": chatroomRecvID[0],
+            "chat_send_id": chatroomRecvID,
+            "chat_recv_id": chatroomRecvID,
             "chat_thumb": "SEND_NICKNAME",
-            "chat_message": chatroomMSG[0],
+            "chat_message": chatroomMSG,
             "chat_time": "2015/01/22 18:04"
         }, {
             "CHAT_SEND_ID": "SEND_NICKNAME",
