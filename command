@@ -74,3 +74,27 @@ use 쿠키파서 ~~ use.route 사이에 app.use(session ...)추가
 어떤 페이지든지 접속하면 세션이 만들어진다.(무조건) 
 서버의 메모리에 저장됨. 
 세션은 키와 값으로 이루어져있음.
+
+
+----------------------------------------------------------------
+
+* openssl
+1. openssl genrsa -out key.pem 2048
+> key.pem 파일 생성됨
+
+2. openssl req -new -key key.pem -out cert_request.csr
+> 정보 입력 or 엔터
+> cert_request.csr 파일 생성됨
+
+3. openssl x509 -req -in cert_request.csr -signkey key.pem -out cert.pem
+> Getting private key
+> cert.pem 파일 생성됨
+
+4. AWS로 가서 security group > inbound에 HTTPS(443) 추가 해줘야함
+
+
+
+
+4. 테스트 방법
+sudo npm install express@3
+
