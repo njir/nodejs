@@ -1,0 +1,8 @@
+npm install in-app-purchase --save
+
+
+2.test 용
+(1) 비밀키 생성
+openssl genrsa -out rsa-private.pem 1024
+(2) 공개키 생성 (PEM형식)
+openssl rsa -in rsa-private.pem -pubout -outform PEM -out rsa-public.pem

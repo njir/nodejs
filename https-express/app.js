@@ -13,6 +13,7 @@ var https = require("https");
 var fs = require("fs");
 
 
+
 var app = express();
 
 // view engine setup
@@ -23,7 +24,9 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -59,6 +62,24 @@ app.use(function(err, req, res, next) {
         message: err.message,
         error: {}
     });
+});
+
+
+var options = {
+    key: fs.readFileSync('./key_files/key.pem'),
+    cert: fs.readFileSync('./key_files/cert.pem')
+};
+
+var port80 = 80;
+var port443 = 443;
+
+http.createServer(app).listen(port80, function() {
+    console.log("Http server listening on port " + port80);
+});
+
+//https
+https.createServer(options, app).listen(port443, function() {
+    console.log("Https server listening on port " + port443);
 });
 
 

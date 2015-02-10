@@ -7,7 +7,16 @@ var pool = mysql.createPool({
     database: 'test'
 });
 
+exports.test = function(datas, callback){
+    console.log(datas);
+    console.log('order: ' , datas.orderId);
+    callback(1);
+    
+};
+
 exports.join = function(datas, callback) {
+   
+    
     pool.getConnection(function(err, conn) {
         if (err) {
             console.error('Join Err', err);

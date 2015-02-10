@@ -1,14 +1,91 @@
 var express = require('express');
 var router = express.Router();
 var db_member = require('../models/db_member');
+//2015-02-05 인앱결제
+var iap = require('in-app-purchase');
+
+
+
+
+
+
+
+
+
+
+
+
+
+// router.post('/inapp', function(req, res) {
+//     /*
+//     For google iap, you need to name your public key file as:
+//     iap-sanbox or iap-live
+//     */
+//     iap.config({
+//         googlePublicKeyPath: "/path/to/google/public/key/dir/"
+//     });
+//     iap.setup(function(error) {
+//         if (error) {
+//             return console.error('something went wrong...');
+//         }
+//         /*
+//             google receipt must be provided as an object
+//             {
+//                 "data": "{stringified data object}",
+//                 "signature": "signature from google"
+//             }
+//         */
+//         // iap is ready
+//         iap.validate(iap.GOOGLE, googleReceipt, function(err, googleRes) {
+//             if (err) {
+//                 return console.error(err);
+//             }
+//             if (iap.isValidated(googleRes)) {
+//                 // yay good!
+//             }
+//         });
+//     });
+// });
 
 
 /* get home page. */
 router.get('/', function(req, res) {
+    var receipt = {
+        "orderId": "12999763169054705758.1371079406387615",
+        "packageName": "com.example.app",
+        "productId": "exampleSku",
+        "purchaseTime": 1345678900000,
+        "purchaseState": 0,
+        "developerPayload": "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ",
+        "purchaseToken": "rojeslcdyyiapnqcynkjyyjh"
+    };
+    var signature = 'sdsdasdasdas';
+    var datas = [receipt, signature];
+    db_member.test(datas, function(success) {
+    });
     res.render('index', {
         title: '관리자 페이지'
     });
 });
+
+router.get('/test', function(req, res) {
+    var receipt = {
+        "orderId": "12999763169054705758.1371079406387615",
+        "packageName": "com.example.app",
+        "productId": "exampleSku",
+        "purchaseTime": 1345678900000,
+        "purchaseState": 0,
+        "developerPayload": "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ",
+        "purchaseToken": "rojeslcdyyiapnqcynkjyyjh"
+    };
+    var signature = 'sdsdasdasdas';
+    db_member.test(receipt, signature, function(success) {
+        res.redirect('/');
+    });
+});
+
+
+
 
 router.get('/join', function(req, res) {
     res.render('join', {

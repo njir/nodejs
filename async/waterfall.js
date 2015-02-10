@@ -8,6 +8,12 @@ async.waterfall(
             console.log('첫번째 처리');
             callback(null, 'one', 'two');
         },
+        function(arg1, arg2, callback) {
+            if (arg1 == 'one2') {
+                callback(true, 'errortak');
+            }
+                callback(null, '2', '3');
+        },
         //arg1에는 'one'이 들어오고 arg2에는 'two'가 들어옴 
         function(arg1, arg2, callback) {
             console.log('두번째 처리');
@@ -20,7 +26,14 @@ async.waterfall(
         }
     ],
     function(err, results) {
-        console.log('최종 처리');
-        console.log('results', results);
+        if (err) {
+            console.log('err: ', err);
+            console.log('results: ', results);
+        }
+        else {
+
+            console.log('최종 처리');
+            console.log('results', results);
+        }
     }
 );

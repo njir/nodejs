@@ -1,0 +1,16 @@
+{
+  "name": "google_play_in_app_billing_sample",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "ejs": "~1.0.0",
+    "express": "~4.10.6"
+  },
+  "devDependencies": {
+    "restler": "~2.0.1"
+  }
+
+}

@@ -7,6 +7,13 @@ Non Block I/O
 가볍고 효율적인 실시간 어플
 
 --------------------------
+NoSQL
+1. Key-Value : REDIS(메모리)
+2. document(문서) : MongoDB(JSON)
+3. 그래프 DB : Neo4J (ex 페이스북 좋아요)
+4. 컬럼 패밀리 : Casandra
+
+--------------------------
 
 http://developer.android.com/sdk/index.html
 eclipse with adt 
