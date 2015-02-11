@@ -40,13 +40,25 @@ router.post('/ranking', function(req, res) {
     client.hset(obj.member, "date", obj.date, redis.print);
 
     client.zadd('MyGame', parseInt(obj.score, 10), obj.member);
-    client.zrevrange("MyGame", 0, 4, function(err, results) {
-        if (err) console.log('err', err);
-        console.log('상위 5명의 점수 : ', results);
-    });
+    client.zrevrange("MyGame", 0, 4, function(err, members) {
+        if (err) console.log('zrevrange err', err);
+        console.log('상위 5명의 번호 : ', members);
+        var score = [];
+        async.each(members, function(item, done) {
+            if (err) console.log('async error ', err);
+            client.hgetall(item, function(err, doc) {
+                if (err) console.log('hgetall error ', err);
+                score.push(doc);
+                done();
+            });
+        }, function(err) {
+            if (err) console.log('each error ', err);
+            res.json({
+                results: score
+            });
 
-    res.json({
-        results: 'success'
+        });
+
     });
 });
 

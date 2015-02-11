@@ -1,0 +1,60 @@
+create table member(
+    id varchar(12) not null,
+    pw varchar(12) not null,
+    name varchar(10) not null,
+    tel varchar(13) not null,
+    sex tinyint not null,
+    email varchar(100) not null,
+    age tinyint not null,
+    regday datetime not null,
+    upday TIMESTAMP default CURRENT_TIMESTAMP,
+    del_yn char(1) not null default 'N',
+    primary key(id)
+);
+
+*convert
+alter table board convert to charset utf8;
+
+*insert 
+insert into member(id, pw, name, tel, sex, email, age, regday, upday, del_yn) values(...);
+
+
+*mysql 서버 시간 변경
+서버pc의 시간을 변경하면 mysql도 변경된다
+1. cd /usr/share/zoneinfo 를 쳐서 바꾸고 싶은 시간대가 있는지 확인합니다.  
+2. 한국 시간대(Seoul)로 변경해 보겠습니다.
+    cp /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+3. 콘솔에서 date 명령어를 수행하면 시간대(TimeZone)이 KST로 변경된 것을 확인할 수 있습니다. 
+4. mysql을 다시 실행 시키기 위해서 sudo su 슈퍼유저로 접속 한 후 
+그 다음 콘솔에 server mysql restart 해줘서 mysql을 다시 실행시킵니다.
+
+
+*login
+select count(*) cnt from member where id='njir' and pw='tintree';
+cnt ==> 1 
+틀리면 0
+
+
+* add user to mysql
+grant all privileges on test.* to tak@'%' identified by '....'
+flush privileges
+
+* 외부 호스트 설정
+vi /etc/mysql/my.cnf
+
+#bind address = 127.0.0.1
+bind address = 0.0.0.0
+
+sudo service mysql restart
+
+create table board(
+	no int not null auto_increment,
+	pw varchar(12) not null,
+	name varchar(10) not null,
+	title varchar(50) not null,
+	content varchar(5000) not null,
+	regdate datetime not null,
+	hit int not null,
+	good int not null,
+	primary key(no)
+);

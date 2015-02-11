@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>exam</title>
+		<link rel="stylesheet" href="css/join.css">
+		<script>
+			function check(){
+				//alert("눌리냐?");
+
+				if(document.frm1.id.value ==""){
+					alert("id를 입력ㄹ하세요");
+					document.frm1.id.focus();
+					return false;
+				}
+				
+
+				if(document.frm1.id.value.length<8||document.frm1.id.value.length>12){
+				alert("id를 글자수");
+					document.frm1.id.value = "";
+					document.frm1.id.focus();
+					return false;
+				}
+
+				if(document.frm1.pw.value ==""){
+					alert("비밀번호를 입력하세용");
+					document.frm1.pw.focus();
+					return false;
+				}
+
+				if(document.frm1.pw2.value ==""){
+					alert("비밀번호 확인을 입력하세용");
+					document.frm1.pw.focus();
+					return false;
+				}
+
+				if((document.frm1.pw.value.length <8) || (document.frm1.pw.value.length)>12){
+					alert("비밀번호 8~12글자로 입력하세용");
+					document.frm1.pw.focus();
+					return false;
+				}
+
+
+				if(document.frm1.pw.value!=document.frm1.pw2.value){
+					alert("비밀번호가 다릅니다!");
+					document.frm2.pw.focus();
+					return false;	
+				}
+
+				if(document.frm1.name.value ==""){
+					alert("이름을 입력하세용");
+					document.frm1.name.focus();
+					return false;
+				}
+
+				if((document.frm1.name.value.length <2) || (document.frm1.name.value.length)>10){
+					alert("이름 2~10글자로 입력하세용");
+					document.frm1.pw.focus();
+					return false;
+				}
+				
+				
+/*
+				var select = document.getElementById("t1");
+				var option_value = select.options[select.selectedIndex].value;
+				if(option_value==""){
+					alert("전화번호를 입력하세용");
+					document.frm1.t1.focus();
+					return false;
+				}
+*/
+
+				if(document.frm1.t1.value ==""){
+					alert("국번를 입력하세용");
+					document.frm1.t1.focus();
+					return false;
+				}
+
+				if(document.frm1.t2.value ==""){
+					alert("전화번호를 입력하세용");
+					document.frm1.t2.focus();
+					return false;
+				}
+				if(isNaN(document.frm1.t2.value)){
+					alert("전화번호를 숫자로 입력하세용");
+					document.frm1.t2.focus();
+					return false;
+				}
+				if((document.frm1.t2.value.length <3)){
+					alert("전화번호를 3~4글자로 입력하세용");
+					document.frm1.t2.focus();
+					return false;
+				}
+				
+				if(document.frm1.t3.value ==""){
+					alert("전화번호를 입력하세용");
+					document.frm1.t3.focus();
+					return false;
+				}
+				if(isNaN(document.frm1.t3.value)){
+					alert("전화번호를 숫자로 입력하세용");
+					document.frm1.t3.focus();
+					return false;
+				}
+				if((document.frm1.t3.value.length <4)){
+					alert("뒷 전화번호를 4글자로 입력하세용");
+					document.frm1.t3.focus();
+					return false;
+				}
+
+				var t = document.frm1.t1.value + "-" + document.frm1.t2.value + "-" + document.frm1.t3.value;
+				document.frm1.tel.value = t;
+
+
+				var num_temp = document.frm1.sex.length;
+				for(var i=0; i<num_temp; i++){
+					if(document.all.sex[i].checked==true){
+						break;
+					}
+				}
+				if(i==num_temp){
+					alert("성별을 고르세요!!!");
+					return false;
+				}
+
+				var reg_email=/^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
+
+				//이메일 형식에 맞지않으면
+				if (document.frm1.email.value.search(reg_email)){
+					alert("이메일 형식을 지키세요");
+					return false;
+				}
+
+				if(document.frm1.email.value ==""){
+					alert("이메일을 입력하세용");
+					document.frm1.email.focus();
+					return false;
+				}
+
+				if(document.frm1.age.value ==""){
+					alert("나이를 입력하세용");
+					document.frm1.age.focus();
+					return false;
+				}
+
+				if(isNaN(document.frm1.age.value)){
+					alert("나이를 숫자로 입력하세용");
+					document.frm1.age.focus();
+					return false;
+				}			
+
+				document.frm1.submit();	
+
+
+			}
+		</script>
+	</head>
+	<style type="text/css">
+		table{background-color: #aaa}
+		td{background-color: #f95}
+	</style>
+	<body>
+		<h1>회원가입</h1>
+			<form name="frm1" id="frm1" action="/join" method="post">
+			<table border="1" width="500" id="table">
+				<tr>
+					<th>아이디</th>
+					<td><input type="text" name="id" id="id" maxlength="12" size="20"></td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td><input type="password" name="pw" id="pw" maxlength="12" size="20"></td>
+				</tr>
+				<tr>
+					<th>비밀번호 확인</th>
+					<td><input type="password" name="pw2" id="pw2" maxlength="12" size="20"></td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td><input type="text" name="name" id="name" maxlength="10" size="20"></td>
+				</tr>
+				<tr>
+					<th>전화</th>
+					<td>
+						<input type="hidden" id="tel"></input>
+						<select name="t1" id = "t1">
+							<option value="">전화</option>
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="016">016</option>
+							<option value="017">017</option>
+							<option value="018">018</option>
+						</select>
+						-
+						<input type="text" name="t2" id="t2" maxlength="4" size="4">
+						-
+						<input type="text" name="t3" id="t3" maxlength="4" size="4">
+					</td>
+				</tr>
+				<tr>
+					<th>성별</th>
+					<td>
+						<input type="radio" name="sex" value="1">남
+						<input type="radio" name="sex" value="2">여
+					</td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td>
+						<input type="email" name="email" id="email" maxlength="50" size="30">
+					</td>
+				</tr>
+				<tr>
+					<th>나이</th>
+					<td><input type="text" name="age" id="age" maxlength="3" size="3"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="button" value="가입" onclick="check()">
+						<input type="reset" value="취소">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>
