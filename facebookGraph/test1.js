@@ -18,3 +18,7 @@ fbgraph.get('/me', function(err, res) {
 //     console.log('/me?fields=picture', res);
 
 // });
+
+
+
+var kakao_access = 'rNHBKTxN9lH5ezKJWuR-noMwJPBPjDB8mwYUSawQQjMAAAFLfE_vvg';
