@@ -62,6 +62,7 @@ create table list (
 	list_gender        integer      not null, -- list_gender
 	list_text		   varchar(500) null,
 	user_nickname      varchar(45)  not null,      -- user_nickname
+	list_report_cnt    integer      null default 0,
 	primary key(list_id),
 	foreign key(user_nickname) references user(user_nickname) on delete no action on update no action
 ) ENGINE = innodb default charset=utf8;

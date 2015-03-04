@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>simpleMap</title>
+    <script src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=0b3cd50f-7674-368c-a460-fe08beade416"></script>
+    <script type="text/javascript">
+        function initialize() {
+            var map = new Tmap.Map({
+                div: "map_div",
+                width: '500px',
+                height: '500px',
+                animation: false
+            });
+            // map.setCenter(new Tmap.LonLat(14135893.887852,4518348.1852606), 14);
+            map.addControls([
+                new Tmap.Control.KeyboardDefaults(),
+                new Tmap.Control.MousePosition(),
+                new Tmap.Control.OverviewMap()
+            ]);
+
+
+            var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png", size, offset);
+            var marker = new Tmap.Markers(options.lonlat, icon, options.label);
+            markerLayer.addMarker(marker);
+
+
+            var markerLayer = new Tmap.Layer.Markers();
+            map.addLayer(markerLayer);
+            var lonlat = new Tmap.LonLat(14135893.887852, 4518348.1852606);
+            var lonlat2 = new Tmap.LonLat(14115892.887741, 4517347.1851626);
+            //
+            var pointList = [];
+            pointList.push(new Tmap.LonLat(14132077.76641, 4520441.6071475));
+            pointList.push(new Tmap.LonLat(14133147.884806, 4519180.3961808));
+            pointList.push(new Tmap.LonLat(14134982.373485, 4519132.6230381));
+            pointList.push(new Tmap.LonLat(14136644.87885, 4519209.0600664));
+            pointList.push(new Tmap.LonLat(14136797.752907, 4517603.8824724));
+            // 
+            var size = new Tmap.Size(22, 30);
+            var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
+            var icon = new Tmap.IconHtml("<img src= 'ico_spot.png'></img>", size, offset);
+
+            // for(var i = 0 ; i<pointList.length;i++){
+            // var marker = new Tmap.Marker(pointList[i], icon);
+            // var marker = new Tmap.Marker(lonlat, icon);
+            // markerLayer.addMarker(marker);
+            // }
+
+            var marker = new Tmap.Marker(lonlat, icon);
+            var marker2 = new Tmap.Marker(lonlat2, icon);
+
+            markerLayer.addMarker(marker);
+            // markerLayer.addMarker(marker2);
+
+            var popup;
+            marker.events.register("mouseover", marker, onOverMarker);
+
+            function onOverMarker(evt) {
+                console.log(evt);
+                popup = new Tmap.Popup("p1",
+                    new Tmap.LonLat(14135893.887852, 4518348.1852606),
+                    new Tmap.Size(100, 200),
+                    "<div>This is Popup Content</div>"
+                );
+                map.addPopup(popup);
+            }
+
+            marker.events.register("mouseout", popup, onOutMarker);
+
+            function onOutMarker(evt) {
+                popup.hide();
+            }
+
+
+            // var options = {
+            //     lonlat:new Tmap.LonLat(lon, lat)
+            // };
+
+        }
+        window.onload = function() {
+            initialize();
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <div id="map_div">
+    </div>
+</body>
